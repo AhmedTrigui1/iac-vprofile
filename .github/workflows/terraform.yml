@@ -18,7 +18,7 @@ env:
   AZURE_SECRET_ACCESS_KEY: ${{ secrets.AZURE_SECRET_ACCESS_KEY }}
   # Blob Storage
   BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE }}
-  AZURE_REGION: germany-west-central
+  AZURE_REGION: germanywestcentral
   AKS_CLUSTER: vprofile-aks
 jobs:
   terraform:
@@ -40,12 +40,7 @@ jobs:
 
       - name: Terraform init
         id: init
-        run: |
-          terraform init \
-            -backend-config="resource_group_name=${{ env.RESOURCE_GROUP }}" \
-            -backend-config="storage_account_name=${{ env.AZURE_STORAGE_ACCOUNT }}" \
-            -backend-config="container_name=vprofieapp" \
-            -backend-config="key=terraform.tfstate"
+        run: terraform init -backend-config="bucket=$BUCKET_TF_STATE"
 
       - name: Terraform format
         id: fmt
