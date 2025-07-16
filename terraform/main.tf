@@ -2,7 +2,6 @@
 provider "azurerm" {
   features {}
 }
-##
 /*
 # Kubernetes Provider (configured after AKS cluster creation)
 provider "kubernetes" {
