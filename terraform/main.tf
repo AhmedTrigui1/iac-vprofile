@@ -20,3 +20,5 @@ data "azurerm_locations" "available" {
 locals {
   cluster_name = var.clusterName
 }
+
+###
