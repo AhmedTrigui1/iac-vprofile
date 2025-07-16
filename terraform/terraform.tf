@@ -15,10 +15,12 @@ terraform {
       version = "~> 4.0.4"  # Unchanged
     }
 
+/*
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "~> 2.23.0" # (for AKS interactions)
     }
+*/
   }
 
   # Azure Backend

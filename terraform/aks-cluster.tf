@@ -1,3 +1,5 @@
+
+/*
 # Local values for consistency
 locals {
   cluster_name = var.clusterName
@@ -27,9 +29,6 @@ resource "azurerm_kubernetes_cluster" "main" {
     vm_size        = "Standard_B2s"  # Cost-effective equivalent to t3.small
     vnet_subnet_id = module.vnet.vnet_subnets[0]  # private-subnet-1
     
-    # Enable autoscaling
-    enable_auto_scaling = true
-
   }
 
   # System-assigned managed identity
@@ -58,8 +57,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "additional" {
   max_count            = 2
   vnet_subnet_id       = module.vnet.vnet_subnets[1]  # private-subnet-2
 
-  # Enable autoscaling
-  enable_auto_scaling = true
 
   # Use spot instances for cost savings (optional)
   # priority = "Spot"
@@ -71,3 +68,4 @@ resource "azurerm_kubernetes_cluster_node_pool" "additional" {
     Project     = "vprofile"
   }
 }
+*/

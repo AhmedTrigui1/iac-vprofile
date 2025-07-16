@@ -1,4 +1,4 @@
-output "cluster_name" {
+/*output "cluster_name" {
   description = "Azure Kubernetes Service (AKS) Cluster Name"
   value       = azurerm_kubernetes_cluster.main.name
 }
@@ -8,7 +8,7 @@ output "cluster_endpoint" {
   value       = azurerm_kubernetes_cluster.main.kube_config.0.host
   sensitive   = true
 }
-
+*/
 output "region" {
   description = "Azure Kubernetes Service (AKS) Cluster region"
   value       = var.region

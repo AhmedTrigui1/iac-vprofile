@@ -77,33 +77,3 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.AZURE_SECRET_ACCESS_KEY }}
 
 
-      - name: Get AKS credentials
-        id: getconfig
-        if: steps.apply.outcome == 'success'
-        run: |
-          az aks get-credentials \
-            --resource-group ${{ env.RESOURCE_GROUP }} \
-            --name ${{ env.AKS_CLUSTER }} \
-            --overwrite-existing
-
-      - name: Install Ingress controller
-        if: steps.apply.outcome == 'success' && steps.getconfig.outcome == 'success'
-        run: |
-          # Install NGINX Ingress Controller for Azure AKS
-          kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/cloud/deploy.yaml
-          
-          # Wait for the ingress controller to be ready
-          kubectl wait --namespace ingress-nginx \
-            --for=condition=ready pod \
-            --selector=app.kubernetes.io/component=controller \
-            --timeout=300s
-
-      - name: Verify cluster status
-        if: steps.apply.outcome == 'success' && steps.getconfig.outcome == 'success'
-        run: |
-          echo "Cluster nodes:"
-          kubectl get nodes
-          echo "Ingress controller status:"
-          kubectl get pods -n ingress-nginx
-          echo "Services:"
-          kubectl get svc -n ingress-nginx
