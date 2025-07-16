@@ -1,11 +1,11 @@
 variable "region" {
-  description = "AWS region"
+  description = "Azure region"
   type        = string
-  default     = "us-east-2"
+  default     = "germanywestcentral"
 }
 
 variable "clusterName" {
   description = "Name of the EKS cluster"
   type        = string
-  default     = "kitops-eks"
+  default     = "vprofile-aks"
 }
