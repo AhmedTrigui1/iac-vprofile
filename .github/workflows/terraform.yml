@@ -13,9 +13,6 @@ on:
       - terraform/**
 
 env:
-  # Credentials for deployments to AZ
-  AZURE_ACCESS_KEY_ID: ${{ secrets.AZURE_ACCESS_KEY_ID }}
-  AZURE_SECRET_ACCESS_KEY: ${{ secrets.AZURE_SECRET_ACCESS_KEY }}
   # Blob Storage
   BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE }}
   AZURE_REGION: germanywestcentral
@@ -41,10 +38,14 @@ jobs:
       - name: Azure Login
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          
+          creds: |
+            {
+              "clientId": "${{ secrets.ARM_CLIENT_ID }}",
+              "clientSecret": "${{ secrets.ARM_CLIENT_SECRET }}",
+              "tenantId": "${{ secrets.ARM_TENANT_ID }}",
+              "subscriptionId": "${{ secrets.ARM_SUBSCRIPTION_ID }}"
+            }
+         
       - name: Terraform init
         id: init
         run: terraform init -backend-config="bucket=$BUCKET_TF_STATE"
