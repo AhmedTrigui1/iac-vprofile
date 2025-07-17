@@ -61,10 +61,6 @@ jobs:
       - name: Terraform plan
         id: plan
         run: terraform plan -no-color -input=false -out planfile
-        continue-on-error: true
-        env:
-          ARM_CLIENT_ID: ${{ secrets.AZURE_ACCESS_KEY_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.AZURE_SECRET_ACCESS_KEY }}
 
 
       - name: Terraform plan status
@@ -75,8 +71,5 @@ jobs:
         id: apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false -parallelism=1 planfile
-        env:
-          ARM_CLIENT_ID: ${{ secrets.AZURE_ACCESS_KEY_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.AZURE_SECRET_ACCESS_KEY }}
 
 
